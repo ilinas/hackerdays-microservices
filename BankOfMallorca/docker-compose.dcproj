@@ -1,10 +1,10 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" Sdk="Microsoft.Docker.Sdk">
   <PropertyGroup Label="Globals">
-    <ProjectGuid>26643861-f305-48af-9a69-d3100b2c6792</ProjectGuid>
+    <ProjectGuid>654f21c9-b9fa-479a-9684-d9d073086217</ProjectGuid>
     <DockerLaunchBrowser>True</DockerLaunchBrowser>
     <DockerServiceUrl>http://localhost:{ServicePort}</DockerServiceUrl>
-    <DockerServiceName>mallorca2017.nancycore</DockerServiceName>
+    <DockerServiceName>bankofmallorca.customer</DockerServiceName>
   </PropertyGroup>
   <ItemGroup>
     <None Include="docker-compose.ci.build.yml" />
