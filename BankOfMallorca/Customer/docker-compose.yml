@@ -1,0 +1,8 @@
+version: '2'
+
+services:
+  bankofmallorca.customer:
+    image: bankofmallorca.customer
+    build:
+      context: ./BankOfMallorca.Customer
+      dockerfile: Dockerfile
