@@ -1,6 +1,8 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
+using Newtonsoft.Json;
 
 namespace BankOfMallorca.Customer
 {
@@ -10,7 +12,8 @@ namespace BankOfMallorca.Customer
 
         public Task Raise(string eventName, object payload)
         {
-            Events.Add(new Event(Events.Count, eventName, payload));
+            var serialized = JsonConvert.SerializeObject(payload);
+            Events.Add(new Event(Events.Count, eventName, serialized));
             return Task.CompletedTask;
         }
 

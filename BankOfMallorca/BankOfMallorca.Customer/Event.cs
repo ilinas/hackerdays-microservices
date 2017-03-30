@@ -4,7 +4,7 @@ namespace BankOfMallorca.Customer
 {
     public class Event
     {
-        public Event(long seqNo, string eventName, object payload)
+        public Event(long seqNo, string eventName, string payload)
         {
             SeqNo = seqNo;
             EventName = eventName;
@@ -17,6 +17,6 @@ namespace BankOfMallorca.Customer
         
         public string EventName { get; }
 
-        public object Payload { get; }
+        public string Payload { get; }
     }
 }

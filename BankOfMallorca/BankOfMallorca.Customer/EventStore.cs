@@ -68,7 +68,7 @@ namespace BankOfMallorca.Customer
             }
         }
 
-        private static object Deserialize(byte[] bytes)
+        private static string Deserialize(byte[] bytes)
         {
             return Encoding.UTF8.GetString(bytes);
         }
