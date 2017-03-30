@@ -6,3 +6,8 @@ services:
     build:
       context: ./BankOfMallorca.Customer
       dockerfile: Dockerfile
+  bankofmallorca.account:
+    image: bankofmallorca.account
+    build:
+      context: ./BankOfMallorca.Account
+      dockerfile: Dockerfile
