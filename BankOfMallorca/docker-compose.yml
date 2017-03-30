@@ -13,3 +13,8 @@ services:
     ports:
       - "1113:1113"
       - "2113:2113"
+  bankofmallorca.account:
+    image: bankofmallorca.account
+    build:
+      context: ./BankOfMallorca.Account
+      dockerfile: Dockerfile

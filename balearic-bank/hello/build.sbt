@@ -8,8 +8,30 @@ val macwire = "com.softwaremill.macwire" %% "macros" % "2.2.5" % "provided"
 val scalaTest = "org.scalatest" %% "scalatest" % "3.0.1" % Test
 
 lazy val `hello` = (project in file("."))
-  .aggregate(`hello-api`, `hello-impl`, `hello-stream-api`, `hello-stream-impl`)
+  .aggregate(`bank-api`, `bank-impl`/*, `hello-api`, `hello-impl`, `hello-stream-api`, `hello-stream-impl`*/)
 
+
+lazy val `bank-api` = (project in file("bank-api"))
+  .settings(
+    libraryDependencies ++= Seq(
+      lagomScaladslApi
+    )
+  )
+
+lazy val `bank-impl` = (project in file("bank-impl"))
+  .enablePlugins(LagomScala)
+  .settings(
+    libraryDependencies ++= Seq(
+      lagomScaladslPersistenceCassandra,
+      lagomScaladslTestKit,
+      macwire,
+      scalaTest
+    )
+  )
+  .settings(lagomForkedTestSettings: _*)
+  .dependsOn(`bank-api`)
+
+/*
 lazy val `hello-api` = (project in file("hello-api"))
   .settings(
     libraryDependencies ++= Seq(
@@ -47,4 +69,4 @@ lazy val `hello-stream-impl` = (project in file("hello-stream-impl"))
     )
   )
   .dependsOn(`hello-stream-api`, `hello-api`)
-
+*/
