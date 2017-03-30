@@ -16,7 +16,7 @@ namespace BankOfMallorca.Account
         }
 
         public Guid CustomerId { get; set; }
-    public Guid AccountId { get; set; }
-    public decimal Saldo { get; set; }
-}
+        public Guid AccountId { get; set; }
+        public decimal Saldo { get; set; }
+    }
 }

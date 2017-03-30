@@ -11,7 +11,7 @@ using Newtonsoft.Json;
 
 namespace BankOfMallorca.Customer
 {
-    public class EventStore : IEventStore
+    public class EventStore //: IEventStore
     {
         private const string StreamName = "customer-events";
         private static readonly IEventStoreConnection Connection = EventStoreConnection.Create(ConnectionSettings.Default, new Uri("tcp://localhost:1113"));
