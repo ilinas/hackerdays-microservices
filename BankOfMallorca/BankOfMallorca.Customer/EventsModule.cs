@@ -1,37 +1,32 @@
-﻿using System.Collections.Generic;
-using Nancy;
+﻿using Nancy;
 
 namespace BankOfMallorca.Customer
 {
     public class EventsModule : NancyModule
     {
-        private readonly IEventStore _eventStore;
-
         public EventsModule(IEventStore eventStore) : base("/events")
         {
-            _eventStore = eventStore;
-
-            Get("/", _ =>
+            Get("/", async _ =>
             {
-                int start;
-                if (!int.TryParse(Request.Query.start.Value, out start))
+                long start;
+                if (!long.TryParse(Request.Query.start.Value, out start))
                 {
                     start = 0;
                 }
 
-                int end;
-                if (!int.TryParse(Request.Query.end.Value, out end))
+                long end;
+                if (!long.TryParse(Request.Query.end.Value, out end))
                 {
-                    end = int.MaxValue;
+                    end = start + 4095;
                 }
 
-                return GetEvents(start, end);
-            });
-        }
+                if (end < start)
+                {
+                    return HttpStatusCode.BadRequest;
+                }
 
-        private IEnumerable<Event> GetEvents(int start, int end)
-        {
-            return _eventStore.GetRange(start, end);
+                return await eventStore.GetRange(start, end);
+            });
         }
     }
 }

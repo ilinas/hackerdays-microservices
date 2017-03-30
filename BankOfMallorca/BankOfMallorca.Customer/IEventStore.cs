@@ -1,10 +1,11 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace BankOfMallorca.Customer
 {
     public interface IEventStore
     {
-        void Raise(string eventName, object payload);
-        IEnumerable<Event> GetRange(int start, int end);
+        Task Raise(string eventName, object payload);
+        Task<IEnumerable<Event>> GetRange(long start, long end);
     }
 }

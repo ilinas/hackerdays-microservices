@@ -4,15 +4,14 @@ namespace BankOfMallorca.Customer
 {
     public class Event
     {
-        public Event(int seqNo, string eventName, object payload)
+        public Event(long seqNo, string eventName, object payload)
         {
             SeqNo = seqNo;
             EventName = eventName;
             Payload = payload;
-            Timestamp = DateTime.Now;
         }
 
-        public int SeqNo { get; set; }
+        public long SeqNo { get; set; }
 
         public DateTime Timestamp { get; set; }
         

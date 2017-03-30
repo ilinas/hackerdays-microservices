@@ -1,7 +1,9 @@
-﻿namespace BankOfMallorca.Customer
+﻿using System.Threading.Tasks;
+
+namespace BankOfMallorca.Customer
 {
     public interface ICustomerRepository
     {
-        void Save(Customer customer);
+        Task Save(Customer customer);
     }
 }

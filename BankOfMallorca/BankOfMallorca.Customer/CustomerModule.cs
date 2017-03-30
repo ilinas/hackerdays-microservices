@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Threading.Tasks;
 using Nancy;
 using Nancy.ModelBinding;
 
@@ -12,9 +13,9 @@ namespace BankOfMallorca.Customer
         {
             _customerRepository = customerRepository;
 
-            Post("/", parameters =>
+            Post("/", async (parameters, _) =>
             {
-                var customerId = CreateCustomer(this.Bind<CreateCustomerBindModel>());
+                var customerId = await CreateCustomer(this.Bind<CreateCustomerBindModel>());
 
                 var response = (Response) customerId.ToString();
                 response.StatusCode = HttpStatusCode.Created;
@@ -22,11 +23,11 @@ namespace BankOfMallorca.Customer
             });
         }
 
-        private Guid CreateCustomer(CreateCustomerBindModel createCustomer)
+        private async Task<Guid> CreateCustomer(CreateCustomerBindModel createCustomer)
         {
             var customerId = Guid.NewGuid();
             var customer = new Customer(customerId, createCustomer.Name);
-            _customerRepository.Save(customer);
+            await _customerRepository.Save(customer);
             return customerId;
         }
 

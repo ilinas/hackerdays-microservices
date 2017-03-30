@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace BankOfMallorca.Customer
 {
@@ -14,10 +15,11 @@ namespace BankOfMallorca.Customer
             _eventStore = eventStore;
         }
 
-        public void Save(Customer customer)
+        public async Task Save(Customer customer)
         {
             Customers.Add(customer.Id, customer);
-            _eventStore.Raise("CustomerCreated", new
+
+            await _eventStore.Raise("CustomerCreated", new
             {
                 customer.Id,
                 customer.Name

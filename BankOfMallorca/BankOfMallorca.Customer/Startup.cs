@@ -7,6 +7,8 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using Nancy;
+using Nancy.Configuration;
 using Nancy.Owin;
 
 namespace BankOfMallorca.Customer
@@ -22,13 +24,20 @@ namespace BankOfMallorca.Customer
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IHostingEnvironment env, ILoggerFactory loggerFactory)
         {
-            app.UseOwin().UseNancy();
+            app.UseOwin().UseNancy(options => options.Bootstrapper = new TracingBootstrapper());
 
             loggerFactory.AddConsole();
 
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
+            }
+        }
+        public class TracingBootstrapper : DefaultNancyBootstrapper
+        {
+            public override void Configure(INancyEnvironment env)
+            {
+                env.Tracing(enabled: true, displayErrorTraces: true);
             }
         }
     }

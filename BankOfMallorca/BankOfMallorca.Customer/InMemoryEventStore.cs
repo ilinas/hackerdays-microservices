@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 
 namespace BankOfMallorca.Customer
 {
@@ -7,15 +8,16 @@ namespace BankOfMallorca.Customer
     {
         private static readonly IList<Event> Events = new List<Event>();
 
-        public void Raise(string eventName, object payload)
+        public Task Raise(string eventName, object payload)
         {
-            var seqNo = Events.Count;
-            Events.Add(new Event(seqNo, eventName, payload));
+            Events.Add(new Event(Events.Count, eventName, payload));
+            return Task.CompletedTask;
         }
 
-        public IEnumerable<Event> GetRange(int start, int end)
+        public Task<IEnumerable<Event>> GetRange(long start, long end)
         {
-            return Events.Skip(start).Take(end - start + 1);
+            var events = Events.Skip((int)start).Take((int)(end - start) + 1);
+            return Task.FromResult(events);
         }
     }
 }
