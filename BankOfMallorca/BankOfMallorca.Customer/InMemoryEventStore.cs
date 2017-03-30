@@ -15,7 +15,7 @@ namespace BankOfMallorca.Customer
 
         public IEnumerable<Event> GetRange(int start, int end)
         {
-            return Events.Skip(start).Take(end - start);
+            return Events.Skip(start).Take(end - start + 1);
         }
     }
 }
