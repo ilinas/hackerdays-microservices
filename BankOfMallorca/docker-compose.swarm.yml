@@ -1,0 +1,54 @@
+---
+version: "3"
+services:
+
+  customer:
+    image: jacobeis/bankofmallorca.customer
+    build: ./BankOfMallorca.Customer
+    networks:
+      - backend
+      - eventstore
+    ports:
+      - "8080:80"
+    deploy:
+      replicas: 2
+      update_config:
+        parallelism: 1
+      restart_policy:
+        condition: on-failure
+
+  eventstore:
+    image: swarm_eventstore
+    build: ../eventstore
+    command: "--cluster-size=3 --cluster-dns tasks.eventstore --cluster-gossip-port=2112"
+    networks:
+      - eventstore
+    ports:
+      - "2113:2113"
+    deploy:
+      replicas: 3
+      update_config:
+        parallelism: 3
+      restart_policy:
+        condition: on-failure
+
+  admin:
+    image: mcastelino/nettools
+    networks:
+      - backend
+      - eventstore
+    command:
+      sleep 30d
+    deploy:
+      replicas: 1
+      update_config:
+        parallelism: 1
+        delay: 10s
+      restart_policy:
+        condition: none
+
+networks:
+  backend:
+    driver: overlay
+  eventstore:
+    driver: overlay
